@@ -1,12 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React from 'react';
+/* eslint-disable prettier/prettier */
+import React, { useState, useMemo } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,100 +7,70 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
+  TouchableOpacity,
+  FlatList,
+  DrawerLayoutAndroid
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import InventoryItem from "./components/InventoryItem"
+
 
 const App: () => React$Node = () => {
+  const [items, setItems] = useState([]);
+
+  const addItem = () => setItems([...items, {name:"prueba", type:"food"}]);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Fabio</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
+      <SafeAreaView style={{ height: '100%' }}>
+        <DrawerLayoutAndroid
+          drawerWidth={300}
+          drawerPosition={"left"}
+          renderNavigationView={() => <Text>nothin</Text>}>
+          <Text style={styles.title}>Pandemic Inventory</Text>
+          <FlatList
+            data={items}
+            renderItem={({ item }) => (
+              <InventoryItem item={item}/>
+            )}
+            keyExtractor={item => Math.random()}
+          />
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={addItem}
+          >
+            <Text style={styles.addText}>+</Text>
+          </TouchableOpacity>
+        </DrawerLayoutAndroid>
       </SafeAreaView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  title: {
+    fontSize: 25,
+    textAlign: 'center',
+    backgroundColor: 'lightgray',
+    height:50
   },
-  engine: {
+  addButton: {
     position: 'absolute',
-    right: 0,
+    bottom: 30,
+    right: 20,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: 'green',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  addText: {
+    fontSize: 25,
+    color: 'white',
   },
 });
 
