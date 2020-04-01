@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Text, TextInput, Button, View, Picker, StyleSheet, Platform, ToastAndroid } from "react-native";
-import ItemType from "../constants/ItemTypes"
+import { Text, TextInput, Button, View, Picker, StyleSheet, Platform, ToastAndroid, Image } from "react-native";
+import itemType from "../constants/ItemTypes"
+import IconType from "../constants/TypeIcons"
 
 const EditItem = ({ route, navigation, editItem }) => {
   const { item } = route.params;
@@ -22,7 +23,15 @@ const EditItem = ({ route, navigation, editItem }) => {
 
   return (
     <View style={styles.mainContainer}>
-      <View >
+      <View>
+        <View style={styles.ImgView}>
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: IconType[itemData.type],
+            }}
+          />
+        </View>
         <Text>Name</Text>
         <TextInput value={itemData.name} style={styles.input} maxLength={18} placeholder="Ex. Milk" onChangeText={(value) => setItemData({ ...itemData, name: value })} />
       </View >
@@ -66,6 +75,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingLeft: 15
+  },
+  tinyLogo: {
+    height: 80,
+    width: 80,
+  },
+  ImgView:{
+    display: "flex",
+    justifyContent:"center",
+    alignItems:"center",
+    paddingTop: 5,
+    paddingBottom: 5
   }
 })
 

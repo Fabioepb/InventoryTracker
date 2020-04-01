@@ -73,8 +73,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     margin: 15,
     marginBottom: 0,
-    backgroundColor: "lightgray",
-    borderRadius: 5
+    backgroundColor: "white",
+    borderRadius: 5,
+    borderColor: "lightgray",
+    borderWidth: 1
   },
   itemDescription: {
     height: "100%",
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
   itemData: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   deleteButton: {
     backgroundColor: "#e63c3c",
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
   },
   editButton: {
     backgroundColor: "gray",
